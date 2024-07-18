@@ -174,7 +174,7 @@ fn main() {
     for y_chunk in 0 .. n_y {
         let start = y_chunk * chunks_y;
         let stop = start + chunks_y;
-        let mut slice = &mut rgbs[y_chunk * n_x .. y_chunk * n_x + n_x];
+        let slice = &rgbs[y_chunk * n_x .. y_chunk * n_x + n_x];
         // for y in start .. stop {
         // let rgb = &rgbs[x];
         for rgb in slice {
