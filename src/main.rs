@@ -273,6 +273,7 @@ fn main() {
     let image = match get_image(&args.image_url) {
         Ok(i) => match i {
             DynamicImage::ImageRgb8(buf) => parse_image_and_print(&buf, chunks_x, chunks_y, RGBSum::zero()),
+            DynamicImage::ImageRgba8(buf) => parse_image_and_print(&buf, chunks_x, chunks_y, RGBSum::zero()),
             _ => panic!("Unsupported pixel type:")
         }
         Err(error) => panic!("Unable to open image for uri {}: {:?}", args.image_url, error)
@@ -319,7 +320,8 @@ fn parse_image_and_print<P: Pixel, Agg: Aggregator<P> + Clone + IsSame + ToColou
                         counter += 1;
                     } else {
                         print!("{}", prev.paint("$".repeat(counter)));
-                        counter = 0;
+                        counter = 1;
+                        prev = rgb.to_colour();
                     }
                 }
             }
